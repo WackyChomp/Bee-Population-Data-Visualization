@@ -45,7 +45,7 @@ app.layout = html.Div([
 ])
 
 #--------------------------------------------------#
-#Callback: 
+#Callback: Connects the Plotly graphs with Dash Components
 
 @app.callback(
     [Output(component_id = 'output_container', component_property = 'children'),
@@ -60,29 +60,29 @@ def update_graph(option_slctd):          #refers to input component_property / w
     print(type(option_slctd))
 
 
-container = "The user chose the year: {}".format(option_slctd)
+    container = "The user chose the year: {}".format(option_slctd)
 
 
-dff = df       #df = data frame
-dff = dff[dff["Year"] == option_slctd]     #takes the year row based on what the user selected. Default is based on application layout dropdown
-dff = dff[dff["Affected by"] == "Varroa_mites"]
+    dff = df       #df = data frame
+    dff = dff[dff["Year"] == option_slctd]     #takes the year row based on what the user selected. Default is based on application layout dropdown
+    dff = dff[dff["Affected by"] == "Varroa_mites"]
 
 
-#Make choropleth graph with Plotly Express
-fig = px.choropleth(
-    data_frame = dff,
-    locationmode = "USA-states",
-    locations = "state_code",
-    scope = "usa",
-    color = "Pct of Colonies Impacted",
-    hover_data = ["State", "Pct of Colonies Impacted"],
-    color_continuous_scale = px.colors.sequential.YlOrRd,
-    labels = {'Pct of Colonies Impacted': "Pct of Bee Colonies"},
-    template = "plotly_dark"
-)
+    #Make choropleth graph with Plotly Express
+    fig = px.choropleth(
+        data_frame = dff,
+        locationmode = "USA-states",
+        locations = "state_code",
+        scope = "usa",
+        color = "Pct of Colonies Impacted",
+        hover_data = ["State", "Pct of Colonies Impacted"],
+        color_continuous_scale = px.colors.sequential.YlOrRd,
+        labels = {'Pct of Colonies Impacted': "Pct of Bee Colonies"},
+        template = "plotly_dark"
+    )
 
 
-return container, fig          #what is returned here goes into output
+    return container, fig          #what is returned here goes into output
 
 #--------------------------------------------------#
 
