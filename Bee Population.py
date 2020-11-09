@@ -10,7 +10,7 @@ app = dash.Dash(__name__)      #starts the app
 #--------------------------------------------------#
 #imports cvs data into pandas for cleaning
 
-df = pd.read_csv("Bee Stats")         #data that you plan to use
+df = pd.read_csv("Bee_Stats.csv")         #data that you plan to use
 
 df = df.groupby(['State', 'ANSI', 'Affected by', 'Year', 'state_code'])[['Pct of Colonies Impacted']].mean()
 #select columns and obtain the average percent of colonies impacted
@@ -87,4 +87,4 @@ def update_graph(option_slctd):          #refers to input component_property / w
 #--------------------------------------------------#
 
 if __name__ == '__main__':
-    app.run_server(debut = True)
+    app.run_server(debug = True)
