@@ -6,3 +6,9 @@ import plotly.express as px
 import pandas as pd
 import numpy as np
 
+#read csv
+df = pd.read_csv("India_Caste.csv")
+
+#rename column names
+df.rename(columns = {'under_trial': 'under trial' , 'state_name': 'state'}, inplace = True)
+
