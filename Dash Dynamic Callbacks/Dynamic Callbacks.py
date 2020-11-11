@@ -1,7 +1,7 @@
 import dash          #version 1.17.0
 import dash_core_components as dcc
 import dash_html_components as html
-from dash.dependencies import Input, Output, All, State, MATCh, ALLSMALLER
+from dash.dependencies import Input, Output, ALL, State, MATCH, ALLSMALLER
 import plotly.express as px
 import pandas as pd
 import numpy as np
@@ -30,7 +30,7 @@ app.layout = html.Div([
 ])
 
 #-------------------------------------#
-#Callback
+#Callback 1: this is a set of inputs and outputs. Not functional
 '''
 In Input, when n_clicks is triggered it triggers 
 callback and display_graphs function gets triggered
@@ -106,4 +106,4 @@ def display_graphs(n_clicks, div_children):
             ]
         )
     div_children.append(new_child)
-    return div_children
+    return div_children         #add html.Div every click
