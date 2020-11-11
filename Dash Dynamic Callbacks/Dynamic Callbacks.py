@@ -80,7 +80,7 @@ def display_graphs(n_clicks, div_children):
             
             dcc.Dropdown(         #3
                 id = {
-                    'type': 'dynamic-dpn-s',
+                    'type': 'dynamic-dpn-s',        #s = state
                     'index': n_clicks
                     },
                 options = [{'label': s, 'value': s} for s in np.sort(df['state'].unique())],
@@ -90,7 +90,7 @@ def display_graphs(n_clicks, div_children):
 
             dcc.Dropdown(         #4
                 id = {
-                    'type': 'dynamic-dpn-ctg',
+                    'type': 'dynamic-dpn-ctg',    #ctg = category
                     'index': n_clicks
                     },
                 options = [{'label': t, 'value': t} for t in ['caste', 'gender', 'state']],
@@ -100,7 +100,7 @@ def display_graphs(n_clicks, div_children):
 
             dcc.Dropdown(         #5
                 id = {
-                    'type': 'dynamic-dpn-num',
+                    'type': 'dynamic-dpn-num',       #num = numerical
                     'index': n_clicks
                     },
                 options = [{'label': u, 'value': u} for u in ['detenues', 'under trial', 'convicts', 'others']],
@@ -128,7 +128,7 @@ MATCH syncs up the index for Input and Output
     [Input(component_id = {'type': 'dynamic-dpn-s', 'index': MATCH}, component_property= 'value'),
      Input(component_id = {'type': 'dynamic-dpn-ctg', 'index': MATCH}, component_property= 'value'),
      Input(component_id = {'type': 'dynamic-dpn-num', 'index': MATCH}, component_property= 'value'),
-     Input({'type': 'dynamic-choice', 'index': MATCH}, 'value')]    #<--- same as above but with less naming
+     Input({'type': 'dynamic-choice', 'index': MATCH}, 'value')]    #<--- same as above but with less naming / corresponds with the radio ID above
     )
 
 def update_graph(s_value, ctg_value, num_value, chart_choice):
@@ -138,7 +138,7 @@ def update_graph(s_value, ctg_value, num_value, chart_choice):
     if chart_choice == 'bar':
         dff = dff.groupby([ctg_value], as_index = False)[['detenues', 'under trial', 'convicts', 'others']].sum()
         fig = px.bar(dff, x = ctg_value, y = num_value)
-        return fig
+        return fig      #refers to the Ouput in @app.callback
     
     elif chart_choice == 'line':
         if len(s_value) == 0:
