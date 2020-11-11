@@ -36,7 +36,9 @@ In Input, when n_clicks is triggered it triggers
 callback and display_graphs function gets triggered
 
 In State, it saves the information of 
-children when callback is triggered 
+children when callback is triggered
+
+The id in children is mandatory for dynamic callbacks
 '''
 
 @app.callback(
@@ -107,3 +109,14 @@ def display_graphs(n_clicks, div_children):
         )
     div_children.append(new_child)
     return div_children         #add html.Div every click
+
+#-------------------------------------#
+#Callback 2: Creating the interactive aspect
+
+@app.callback(
+    Output({'type': 'dynamic-graph', 'index': MATCH}, 'figure'),
+    [Input(component_id = {'type': 'dynamic-dpn-s', 'index': MATCH}, component_property= 'value'),
+     Input(component_id = {'type': 'dynamic-dpn-ctg', 'index': MATCH}, component_property= 'value'),
+     Input(component_id = {'type': 'dynamic-dpn-num', 'index': MATCH}, component_property= 'value'),
+     Input({'type': 'dynamic-choice', 'index': MATCH}, 'value')]
+    )
