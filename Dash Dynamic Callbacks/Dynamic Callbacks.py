@@ -32,6 +32,8 @@ app.layout = html.Div([
 #-------------------------------------#
 #Callback 1: this is a set of inputs and outputs. Not functional
 '''
+The Inputs are strings
+
 In Input, when n_clicks is triggered it triggers 
 callback and display_graphs function gets triggered
 
@@ -112,11 +114,40 @@ def display_graphs(n_clicks, div_children):
 
 #-------------------------------------#
 #Callback 2: Creating the interactive aspect
+'''
+The Input is a dictionary (In callback 1, they're strings)
 
+The 'value' in component_property takes from 'index' in component_id
+
+When the user changes the value of component_id, the callback is triggered
+
+MATCH syncs up the index for Input and Output
+'''
 @app.callback(
-    Output({'type': 'dynamic-graph', 'index': MATCH}, 'figure'),
+    Output({'type': 'dynamic-graph', 'index': MATCH}, 'figure'),       #<--- matches the index of the input, not the graph
     [Input(component_id = {'type': 'dynamic-dpn-s', 'index': MATCH}, component_property= 'value'),
      Input(component_id = {'type': 'dynamic-dpn-ctg', 'index': MATCH}, component_property= 'value'),
      Input(component_id = {'type': 'dynamic-dpn-num', 'index': MATCH}, component_property= 'value'),
-     Input({'type': 'dynamic-choice', 'index': MATCH}, 'value')]
+     Input({'type': 'dynamic-choice', 'index': MATCH}, 'value')]    #<--- same as above but with less naming
     )
+
+def update_graph(s_value, ctg_value, num_value, chart_choice):
+    print(s_value)
+    dff = df[df['state'].isin(s_value)]
+
+    if chart_choice == 'bar':
+        dff = dff.groupby([ctg_value], as_index = False)[['detenues', 'under trial', 'convicts', 'others']].sum()
+        fig = px.bar(dff, x = ctg_value, y = num_value)
+        return fig
+    
+    elif chart_choice == 'line':
+        if len(s_value) == 0:
+            return {}
+        else:
+            dff = dff.groupby([ctg_value, 'year'], as_index = False)[['detenues', 'under trial', 'convicts', 'others']].sum()
+            fig = px.line(dff, x = 'year', y = num_value, color = ctg_value)
+            return fig
+
+    elif chart_choice == 'pie':
+        fig = px.pie(dff, names = ctg_value, values = num_value)
+        return fig
