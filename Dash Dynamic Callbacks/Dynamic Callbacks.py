@@ -151,3 +151,8 @@ def update_graph(s_value, ctg_value, num_value, chart_choice):
     elif chart_choice == 'pie':
         fig = px.pie(dff, names = ctg_value, values = num_value)
         return fig
+
+
+#-------------------------------------#
+if __name__ == '__main__':
+    app.run_server(debug = True)
