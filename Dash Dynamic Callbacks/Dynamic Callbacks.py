@@ -26,7 +26,7 @@ app.layout = html.Div([
         html.Button('Add Chart', id = 'add-chart', n_clicks = 0),
     ]),
 
-    html.Div(id = 'container')      #graphs and components stored in this Div with children list
+    html.Div(id = 'container' , children = [])      #graphs and components stored in this Div with children list
 ])
 
 #-------------------------------------#
@@ -56,59 +56,59 @@ def display_graphs(n_clicks, div_children):
             'display': 'inline-block',
             'outline': 'thin lightgrey solid',
             'padding': 10
-            },
+        },
         
         children = [
             dcc.Graph(            #1
                 id = {
                     'type': 'dynamic-graph',
                     'index': n_clicks
-                    },
+                },
                 figure = {}
-                ),
+            ),
 
             dcc.RadioItems(       #2
                 id = {
                     'type': 'dynamic-choice',
                     'index': n_clicks
-                    },
+                },
                 options = [{'label': 'Bar Chart', 'value': 'bar'},
                            {'label': 'Line Chart', 'value': 'line'},
                            {'label': 'Pie Chart', 'value': 'pie'}],
                 value = 'bar',
-                ),
+            ),
             
             dcc.Dropdown(         #3
                 id = {
                     'type': 'dynamic-dpn-s',        #s = state
                     'index': n_clicks
-                    },
+                },
                 options = [{'label': s, 'value': s} for s in np.sort(df['state'].unique())],
                 multi = True,
                 value = ["Andhra Pradesh", "Maharashtra"],
-                ),
+            ),
 
             dcc.Dropdown(         #4
                 id = {
                     'type': 'dynamic-dpn-ctg',    #ctg = category
                     'index': n_clicks
-                    },
+                },
                 options = [{'label': t, 'value': t} for t in ['caste', 'gender', 'state']],
                 value = 'state',
                 clearable = False
-                ),
+            ),
 
             dcc.Dropdown(         #5
                 id = {
                     'type': 'dynamic-dpn-num',       #num = numerical
                     'index': n_clicks
-                    },
+                },
                 options = [{'label': u, 'value': u} for u in ['detenues', 'under trial', 'convicts', 'others']],
                 value = 'convicts',
                 clearable = False
-                )
-            ]
-        )
+            )
+        ]
+    )
     div_children.append(new_child)
     return div_children         #add html.Div every click
 
