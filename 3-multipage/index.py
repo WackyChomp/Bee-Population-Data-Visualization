@@ -2,22 +2,26 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 from app import app, server       # Connects to app.py
+from apps import vg_sales, p_sales
 
 
-#
+# Landing Page on start up
+
+
+# Links to different web pages
 app.layout = html.Div([
-    ddc.Location(id='url', refresh=False),
+    ddc.Location(id='url', refresh=False),            # reads URL in the browser (pathname is empty by default)
     html.Div([
-        ddc.Link(''),
-        ddc.Link('')
+        ddc.Link('Video Game Sales  |  ', href='/apps/vg_sales'),
+        ddc.Link('Product Sales  |  ', href='/apps/p_sales')
     ], className="row"),
 
-    html.Div(id="page-content", children=[])
+    html.Div(id="page-content", children=[])        # app pages are returned inside array with callback
 ])
 
-#
-@app.callback(Output('page-content', 'children'),
-    [Input('url', 'pathname')])
+# Reading url pathname and returns web page file
+@app.callback(Output(component_id='page-content', component_property='children'),
+    [Input(component_id='url', component_property='pathname')])
 def display_page(pathname):
     if pathname == '/apps/':
         return 
