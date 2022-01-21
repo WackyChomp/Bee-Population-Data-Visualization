@@ -16,15 +16,15 @@ app.layout = html.Div([
         ddc.Link('Product Sales  |  ', href='/apps/p_sales')
     ], className="row"),
 
-    html.Div(id="page-content", children=[])        # app pages are returned inside array with callback
+    html.Div(id="page-content", children=[])        # app pages are returned inside array based on callback
 ])
 
 # Reading url pathname and returns web page file
 @app.callback(Output(component_id='page-content', component_property='children'),
     [Input(component_id='url', component_property='pathname')])
 def display_page(pathname):
-    if pathname == '/apps/':
-        return 
+    if pathname == '/apps/vg_sales':
+        return vg_sales.layout
     if pathname == '/apps/':
         return 
     else:
