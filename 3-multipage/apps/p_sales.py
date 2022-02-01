@@ -6,7 +6,7 @@ import pandas as pd
 import pathlib
 from app import app
 
-# get relative data folder
+# Required to obtain data from path 
 PATH = pathlib.Path(__file__).parent
 DATA_PATH = PATH.joinpath("../datasets").resolve()
 

@@ -6,11 +6,15 @@ import pandas as pd
 import pathlib
 from app import app
 
+# Required to obtain data from path
 PATH = pathlib.Path(__file__).parent
 DATA_PATH = PATH.joinpath("../datasets").resolve()
 
+
+# Reads the data from csv file
 dfv = pd.read_csv(DATA_PATH.joinpath('vgsales.csv'))
 sales_list = ['North American Sales', 'EU Sales', 'Japan Sales', 'Other Sales', 'World Sales']
+
 
 #------------------------------------------------------------------------#
 

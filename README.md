@@ -20,13 +20,16 @@ uncertain. For now, it is all experimental and WIP
 
 #
 
-## Getting started w/ Visual Studio Code
+## Getting started w/ Visual Studio Code on Windows OS
 ```
 ** git clone <insert_repo>
 
-** 
+** [not command line] select a folder and choose a .py file that contains:
 
-** 
+    if __name__ == '__main__':
+        app.run_server(debug = True)
+
+** [on keyboard] press 'F5' to run
 
 ** 
 
@@ -44,7 +47,7 @@ uncertain. For now, it is all experimental and WIP
 #
 
 ## Tasks / Goal Posts
-- [] 
+- [] Deploy 3-multipage with Heroku
 - [] 
 - [] 
 - [] 
