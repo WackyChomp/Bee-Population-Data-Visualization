@@ -10,10 +10,10 @@ from apps import vg_sales, p_sales
 
 # Links to different web pages
 app.layout = html.Div([
-    ddc.Location(id='url', refresh=False),            # reads URL in the browser (pathname is empty by default)
+    dcc.Location(id='url', refresh=False),            # reads URL in the browser (pathname is empty by default)
     html.Div([
-        ddc.Link('Video Game Sales  |  ', href='/apps/vg_sales'),
-        ddc.Link('Product Sales  |  ', href='/apps/p_sales')
+        dcc.Link('Video Game Sales  |  ', href='/apps/vg_sales'),
+        dcc.Link('Product Sales  |  ', href='/apps/p_sales')
     ], className="row"),
 
     html.Div(id="page-content", children=[])        # app pages are returned inside array based on callback
@@ -25,11 +25,11 @@ app.layout = html.Div([
 def display_page(pathname):
     if pathname == '/apps/vg_sales':
         return vg_sales.layout
-    if pathname == '/apps/':
-        return 
+    if pathname == '/apps/p_sales':
+        return p_sales.layout
     else:
         return "404 Link Error!"
 
-#
+# Needed to run program
 if __name__ == '__main__':
     app.run_server(debug=False)
